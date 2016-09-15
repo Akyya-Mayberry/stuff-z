@@ -4,3 +4,4 @@ Python Flask application that allows user to strategically tackle hoarding issue
 1. Fork the repo
 2. Create a virtual environment
 3. Pip install the requirements.txt file
+4. Create a postgres database called 'stuffz'
