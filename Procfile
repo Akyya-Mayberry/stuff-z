@@ -1,1 +1,1 @@
-web: stuff-z gettingstarted.wsgi --log-file -
+web: python server.py
