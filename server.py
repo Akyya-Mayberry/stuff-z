@@ -82,4 +82,7 @@ def profile():
 if __name__ == "__main__":
 	# 0.0.0.0 allows multiple connections to server
 	connect_to_db(app, os.environ.get("DATABASE_URL"))
-	app.run(host='0.0.0.0', debug=True)
+	DEBUG = "NO_DEBUG" not in os.environ
+	DEBUG_TB_INTERCEPT_REDIRECTS = False
+	PORT = int(os.environ.get("PORT", 5000))
+	app.run(host='0.0.0.0', port=PORT, debug=DEBUG)
