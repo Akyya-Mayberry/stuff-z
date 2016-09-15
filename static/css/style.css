@@ -1,0 +1,73 @@
+body {
+  /* Location of the image */
+  background-image: url(../img/stuffz.jpeg);
+  
+  /* Background image is centered vertically and horizontally at all times */
+  background-position: center center;
+  
+  /* Background image doesn't tile */
+  background-repeat: no-repeat;
+  
+  /* Background image is fixed in the viewport so that it doesn't move when 
+     the content's height is greater than the image's height */
+  background-attachment: fixed;
+  
+  /* This is what makes the background image rescale based
+     on the container's size */
+  background-size: cover;
+  
+  /* Set a background color that will be displayed
+     while the background image is loading */
+  background-color: #464646;
+
+  /*font-family: 'Baloo Paaji', cursive;*/
+
+  color: #000;
+}
+
+/* CSS for fixed-fluid layout */
+
+.fixed {
+    width: 150px;  /* the fixed width required */
+    float: left;
+}
+
+.fixed + div {
+     margin-left: 150px;  /* must match the fixed width in the .fixed class */
+     overflow: hidden;
+}
+
+
+/* CSS to ensure sidebar and content are same height (optional) */
+
+html, body {
+    height: 100%;
+}
+
+.fill { 
+    min-height: 100%;
+    position: relative;
+}
+
+.filler:after{
+    background-color:inherit;
+    bottom: 0;
+    content: "";
+    height: auto;
+    min-height: 100%;
+    left: 0;
+    margin:inherit;
+    right: 0;
+    position: absolute;
+    top: 0;
+    width: inherit;
+    z-index: -1;  
+}
+
+a {
+  list-style: none;
+}
+
+li {
+  list-style: none;
+}
