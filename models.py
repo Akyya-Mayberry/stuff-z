@@ -52,28 +52,8 @@ def connect_to_db(app, db_uri=None):
     db.init_app(app)
     db.create_all()
 
-# def example_data():
-	
-# 	# user tasks
-# 	user1 = User(firstname="akyya", lastname="mayberry", email="hollywoodno@gmail.com", password="password")
-	
-# 	db.session.add(user1)
-# 	db.session.commit()
 
-# 	user = User.query.filter_by(email='hollywoodno@gmail.com').one()
-
-# 	print "##user, ", user
-
-	# task1 = Task(user_id=user.user_id, title="Reduce mail piles", description="Sort through mail, trash junk mail, store important mail"
-	# )
-
-	# task2 = Task(user_id=user.user_id, title="donate clothes", description="Sort through all clothes. Drop off unwanted clothes to Goodwill"
-	# )
-
-	# db.session.add(task1)
-	# db.session.commit()
-    
-# if __name__ == '__main__':
-# 	from app import app
-# 	connect_to_db(app)
-# 	print 'successfully connect to db'
+if __name__ == '__main__':
+	from app import app
+	connect_to_db(app)
+	print 'successfully connect to db'

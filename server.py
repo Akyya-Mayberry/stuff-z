@@ -106,7 +106,20 @@ def add():
 
 	if request.method == 'POST':
 		# process
-		return 'new task added'
+		title = request.form['title']
+		description = request.form['description']
+		pic = request.form['pic']
+
+		new_task = Task(user_id=session['current_user'], title=title, description=description)
+
+		db.session.add(new_task)
+		db.session.commit()
+		
+		if pic == "":
+			task = Task.query.filter_by(title=title)
+			task.pic = pic
+
+		return redirect('/profile')
 	else:
 		return render_template('add.html')
 
