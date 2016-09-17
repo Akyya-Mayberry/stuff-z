@@ -2,19 +2,24 @@
 import os
 
 # 3rd party libs
-from flask import Flask, jsonify, json
-from flask import request, render_template
+from flask import Flask, jsonify, json, session
+from flask import request, render_template, redirect
 
 # my libs
-from models import db, connect_to_db, User
+from models import db, connect_to_db, User, Task
 
 app = Flask(__name__)
+app.secret_key = "blaopyblaeudff"
 
 
 
 @app.route("/")
 def index():
 	""" Homepage """
+
+	# direct current loggedin users to profile
+	if 'current_user' in session:
+		return redirect('/profile')
 
 	return render_template("index.html")
 
@@ -23,6 +28,7 @@ def index():
 @app.route("/signup", methods=['POST', 'GET'])
 def register():
 	""" Register new account """
+
 
 	# if user filled out form (POST) process it
 	# otherwise, display blank registration form
@@ -35,12 +41,17 @@ def register():
 		password = request.form['password']
 
 		# save to db
-		user = User(firstname=firstname, lastname=lastname,
+		new_user = User(firstname=firstname, lastname=lastname,
 				    email=email, password=password)
-		db.session.add(user)
+
+		db.session.add(new_user)
 		db.session.commit()
-		
-		return '<h1>User successfully added</h1>'
+
+		# add user to session and redirect to profile page
+		user = User.query.filter_by(email=email).one()
+		session['current_user'] = user.user_id
+
+		return redirect('/profile')
 	else:
 		return render_template('register.html')
 
@@ -59,9 +70,12 @@ def login():
 		password = request.form['password']
 
 		# check user exist in db
-		user = User.query.filter_by(email=email, password=password)
+		user = User.query.filter_by(email=email, password=password).one()
+
+		# add user to session
+		session['current_user'] = user.user_id
 		
-		return '<h1>User successfully logged in!</h1>'
+		return redirect('/profile')
 	else:
 		return render_template('login.html')
 
@@ -71,12 +85,19 @@ def login():
 def logout():
 	""" Log out current user """
 
+	# Remove current user
+	session.pop('current_user', None)
+
+	return redirect('/')
+
 
 
 @app.route("/profile")
 def profile():
 	""" Logged in user profile page """
 
+	tasks = User.query.get(session['current_user']).tasks
+	return render_template('profile.html', tasks=tasks)
 
 
 if __name__ == "__main__":
