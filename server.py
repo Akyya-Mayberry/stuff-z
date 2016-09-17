@@ -100,6 +100,18 @@ def profile():
 	return render_template('profile.html', tasks=tasks)
 
 
+@app.route('/add', methods=['POST', 'GET'])
+def add():
+	""" Add new task """
+
+	if request.method == 'POST':
+		# process
+		return 'new task added'
+	else:
+		return render_template('add.html')
+
+
+
 if __name__ == "__main__":
 	# 0.0.0.0 allows multiple connections to server
 	connect_to_db(app, os.environ.get("DATABASE_URL"))

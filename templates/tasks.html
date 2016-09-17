@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block body %}
+	<div class="container">
+		<div class="row text-center">
+			<div class="col-sm-8">
+				<h1>Stuff to Tackle</h1>
+			</div>			
+			<div class="col-sm-3">
+				<button type="button" class="btn btn-default btn-sm">
+					<span class="glyphicon glyphicon-plus"></span> Add
+				</button>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-offset-2 col-md-10">
+				{% if tasks %}
+					<ol>
+					{% for task in tasks %}
+						<div class="row">
+							<div class="col-md-6">
+								<li>
+									{{ task }}
+									<a href="#"><span class="glyphicon glyphicon-pencil"></span></a>
+									<a href="#"><span class="glyphicon glyphicon-ok"></span></a>
+									<a href="#"><span class="glyphicon glyphicon-remove"></span></a>
+			    				</li>
+							</div>
+						</div>
+					{% endfor %}
+					</ol>
+				{% else %}
+					<p>No stuff to display</p>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+{% endblock %}
