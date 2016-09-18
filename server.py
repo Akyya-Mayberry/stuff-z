@@ -19,7 +19,7 @@ def index():
 
 	# direct current loggedin users to profile
 	if 'current_user' in session:
-		return redirect('/profile')
+		return redirect('/tasks')
 
 	return render_template("index.html")
 
@@ -51,7 +51,7 @@ def register():
 		user = User.query.filter_by(email=email).one()
 		session['current_user'] = user.user_id
 
-		return redirect('/profile')
+		return redirect('/tasks')
 	else:
 		return render_template('register.html')
 
@@ -75,7 +75,7 @@ def login():
 		# add user to session
 		session['current_user'] = user.user_id
 		
-		return redirect('/profile')
+		return redirect('/tasks')
 	else:
 		return render_template('login.html')
 
@@ -100,7 +100,17 @@ def profile():
 	return render_template('profile.html', tasks=tasks)
 
 
-@app.route('/add', methods=['POST', 'GET'])
+
+@app.route("/tasks")
+def tasks():
+	""" Displays all tasks of user """
+
+	tasks = Task.query.filter_by(user_id=session['current_user']).all()
+	return render_template('tasks.html', tasks=tasks)
+
+
+
+@app.route('/tasks/add', methods=['POST', 'GET'])
 def add():
 	""" Add new task """
 
@@ -110,8 +120,8 @@ def add():
 		description = request.form['description']
 		pic = request.form['pic']
 
+		# add new task to db
 		new_task = Task(user_id=session['current_user'], title=title, description=description)
-
 		db.session.add(new_task)
 		db.session.commit()
 		
@@ -122,6 +132,29 @@ def add():
 		return redirect('/profile')
 	else:
 		return render_template('add.html')
+
+
+
+@app.route('/tasks/<int:task_id>')
+def details(task_id):
+	""" Display details of specific task """
+
+	# get task from server
+	task = Task.query.get(task_id)
+
+	return render_template('details.html', task=task)
+
+
+
+@app.route('/tasks/<int:task_id>/edit')
+def edit(task_id):
+	""" Edit existing task """
+
+
+
+@app.route('/tasks/<int:task_id>/delete')
+def delete(task_id):
+	""" Deletes existing task """
 
 
 

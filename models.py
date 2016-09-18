@@ -38,9 +38,16 @@ class Task(db.Model):
 	status = db.Column(db.Boolean, default=False)
 	pic = db.Column(db.String, default='http://saleskiphire.co.uk/communities/1/000/001/633/941//images/7690394.jpg')
 
+	def __init__(self, user_id, title, description=None, pic=None):
+		self.user_id = user_id
+		self.title = title
+		self.description = description
+		self.pic = pic
+
 	def __repr__(self):
 
 		return "<Title: %s Description: %s>" % (self.title, self.description)
+
 
 
 # db connection
