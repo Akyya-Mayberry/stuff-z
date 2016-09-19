@@ -7,23 +7,28 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-md-12">
 				{% if tasks %}
 					<ol>
 					{% for task in tasks %}
-								<li>
-									<a href="/tasks/{{ task.task_id }}" >{{ task.title }} {{ task.description }}</a>
+						<li>
+							<div class="w3-card-8 w3-dark-grey">
+								<div class="w3-container w3-center">
+									<h3><a href="/tasks/{{ task.task_id }}/details">{{ task.title }}</a></h3>
+									<img src="{{ task.pic }}" alt="task picture" style="width:20%">
+									<h5>{{ task.description }}</h5>
+									{# <button class="w3-btn w3-green">Accept</button>
+									<button class="w3-btn w3-red">Decline</button> #}
 									<a href="#"><span class="glyphicon glyphicon-pencil"></span></a>
-									<a href="#"><span class="glyphicon glyphicon-ok"></span></a>
+									<a href="/tasks/{{ task.task_id }}/completed"><span class="glyphicon glyphicon-ok"></span></a>
 									<a href="/tasks/{{ task.task_id }}/delete"><span class="glyphicon glyphicon-remove"></span></a>
-									<img src="{{ task.pic }}" width="100">
-			    				</li>
+								</div>
+							</div>
+						</li>
 					{% endfor %}
 					</ol>
 				{% else %}
 					<p>No stuff to display</p>
 				{% endif %}
-			</div>
 		</div>
 	</div>
 {% endblock %}

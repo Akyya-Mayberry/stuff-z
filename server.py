@@ -3,7 +3,7 @@ import os
 
 # 3rd party libs
 from flask import Flask, jsonify, json, session
-from flask import request, render_template, redirect
+from flask import request, render_template, redirect, flash
 
 # my libs
 from models import db, connect_to_db, User, Task
@@ -70,8 +70,13 @@ def login():
 		password = request.form['password']
 
 		# check user exist in db
-		user = User.query.filter_by(email=email, password=password).one()
+		try:
+			user = User.query.filter_by(email=email, password=password).one()
+		except:
+			flash('<p>No account exist under that email, try again or <a href="/signup">signup</a> for new account.<p>')
+			return redirect('/login')
 
+		print "$$$$user, ", user
 		# add user to session
 		session['current_user'] = user.user_id
 		
@@ -105,7 +110,7 @@ def profile():
 def tasks():
 	""" Displays all tasks of user """
 
-	tasks = Task.query.filter_by(user_id=session['current_user']).all()
+	tasks = Task.query.filter_by(user_id=session['current_user'], status=False).all()
 	return render_template('tasks.html', tasks=tasks)
 
 
@@ -135,7 +140,7 @@ def add():
 
 
 
-@app.route('/tasks/<int:task_id>')
+@app.route('/tasks/<int:task_id>/details')
 def details(task_id):
 	""" Display details of specific task """
 
@@ -160,6 +165,18 @@ def delete(task_id):
 	task = Task.query.get(task_id)
 
 	db.session.delete(task)
+	db.session.commit()
+
+	return redirect('/tasks')
+
+
+@app.route('/tasks/<int:task_id>/completed')
+def mark_complete(task_id):
+	""" Mark a task as completed """
+
+	task = Task.query.get(task_id)
+	task.status = True
+
 	db.session.commit()
 
 	return redirect('/tasks')
