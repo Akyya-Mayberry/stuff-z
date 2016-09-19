@@ -96,8 +96,8 @@ def logout():
 def profile():
 	""" Logged in user profile page """
 
-	tasks = User.query.get(session['current_user']).tasks
-	return render_template('profile.html', tasks=tasks)
+	user = User.query.get(session['current_user'])
+	return render_template('profile.html', user=user)
 
 
 
@@ -129,7 +129,7 @@ def add():
 			task = Task.query.filter_by(title=title)
 			task.pic = pic
 
-		return redirect('/profile')
+		return redirect('/tasks')
 	else:
 		return render_template('add.html')
 
@@ -155,6 +155,14 @@ def edit(task_id):
 @app.route('/tasks/<int:task_id>/delete')
 def delete(task_id):
 	""" Deletes existing task """
+
+	# get task
+	task = Task.query.get(task_id)
+
+	db.session.delete(task)
+	db.session.commit()
+
+	return redirect('/tasks')
 
 
 

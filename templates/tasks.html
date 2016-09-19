@@ -1,32 +1,28 @@
 {% extends 'base.html' %}
 {% block body %}
-	<div class="container">
+	<div class="container-fluid">
 		<div class="row text-center">
 			<div class="col-sm-8">
 				<h1>Stuff To Do</h1>
 			</div>			
 			<div class="col-sm-3">
-				<a href="/add" class="btn btn-default btn-sm">
+				<a href="/tasks/add" class="btn btn-default btn-sm">
 					<span class="glyphicon glyphicon-plus"></span> Add
 				</a>
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-md-offset-2 col-md-10">
+			<div class="col-md-12">
 				{% if tasks %}
 					<ol>
 					{% for task in tasks %}
-						<div class="row">
-							<div class="col-md-6">
 								<li>
 									<a href="/tasks/{{ task.task_id }}" >{{ task.title }} {{ task.description }}</a>
 									<a href="#"><span class="glyphicon glyphicon-pencil"></span></a>
 									<a href="#"><span class="glyphicon glyphicon-ok"></span></a>
-									<a href="#"><span class="glyphicon glyphicon-remove"></span></a>
+									<a href="/tasks/{{ task.task_id }}/delete"><span class="glyphicon glyphicon-remove"></span></a>
 									<img src="{{ task.pic }}" width="100">
 			    				</li>
-							</div>
-						</div>
 					{% endfor %}
 					</ol>
 				{% else %}
