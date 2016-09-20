@@ -4,6 +4,7 @@ import os
 # 3rd party libs
 from flask import Flask, jsonify, json, session
 from flask import request, render_template, redirect, flash
+from werkzeug import secure_filename
 
 # my libs
 from models import db, connect_to_db, User, Task
@@ -11,6 +12,9 @@ from models import db, connect_to_db, User, Task
 app = Flask(__name__)
 app.secret_key = "blaopyblaeudff"
 
+# images and other files uploaded
+UPLOAD_FOLDER = 'static/uploads'
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 
 @app.route("/")
@@ -119,20 +123,24 @@ def tasks():
 def add():
 	""" Add new task """
 
+	# process submitted task form otherwise
+	# display empty form
 	if request.method == 'POST':
-		# process
+		
 		title = request.form['title']
 		description = request.form['description']
-		pic = request.form['pic']
+		pic = request.files['pic']
+		filename = None
+
+		# clean filename, then save to server
+		if pic:
+			filename =  str(session["current_user"]) + "_" + secure_filename(pic.filename)
+			pic.save(os.path.join(UPLOAD_FOLDER, filename))
 
 		# add new task to db
-		new_task = Task(user_id=session['current_user'], title=title, description=description)
+		new_task = Task(user_id=session['current_user'], title=title, description=description, pic=filename)
 		db.session.add(new_task)
 		db.session.commit()
-		
-		if pic == "":
-			task = Task.query.filter_by(title=title)
-			task.pic = pic
 
 		return redirect('/tasks')
 	else:

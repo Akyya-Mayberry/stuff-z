@@ -15,13 +15,14 @@
 		<br>
 		<div class="row">
 				{% if tasks %}
-					<div class="col-md-12">
+					<div class="col-md-12 text-center">
 					{% for task in tasks %}
 						<div class="col-md-4 pull-left">
-							<div class="w3-card-8 w3-dark-grey">
+							<div class="w3-card-8 w3-light-grey">
 								<div class="w3-container w3-center">
 									<h3><a href="/tasks/{{ task.task_id }}/details">{{ task.title }}</a></h3>
-									<img src="{{ task.pic }}" alt="task picture" style="width:20%" class="img-responsive img-circle">
+									{# <img src="{{ url_for('static', filename='uploads/{{task.pic}}') }}" alt="task picture" style="width:20%" class="img-responsive img-circle center-block"> #}
+									<img src="static/uploads/{{ task.pic }}" alt="task picture" style="width:20%" class="img-responsive img-circle center-block">
 									<h5>{{ task.description }}</h5>
 									{# <button class="w3-btn w3-green">Accept</button>
 									<button class="w3-btn w3-red">Decline</button> #}
