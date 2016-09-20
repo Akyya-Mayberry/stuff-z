@@ -2,6 +2,11 @@
 {% block title %}All Tasks{% endblock %}
 {% block body %}
 	<div class="container">
+		<div class="row" style="text-align: right;">
+			<div class="col-xs-12">
+				<h3>filter</h3>
+			</div>
+		</div>
 		<div class="row">
 			<div class="col-sm-12 text-center">
 				<h1>Stuff To Do</h1>
@@ -12,7 +17,7 @@
 				{% if tasks %}
 					<div class="col-md-12">
 					{% for task in tasks %}
-						<div class="col-md-4 pull-right">
+						<div class="col-md-4 pull-left">
 							<div class="w3-card-8 w3-dark-grey">
 								<div class="w3-container w3-center">
 									<h3><a href="/tasks/{{ task.task_id }}/details">{{ task.title }}</a></h3>
