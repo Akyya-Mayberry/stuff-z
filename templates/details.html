@@ -1,8 +1,31 @@
 {% extends 'base.html' %}
 {% block title %}{{ task.title }}{% endblock %}
 {% block body %}
-	<div class="container-fluid">
-		<h1>{{ task.title }}</h1>
-		<p>{{ task.description }}</p>
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-2 col-sm-1 col-md-offset-9 col-md-1">
+				<a href="/tasks/{{ task.task_id }}/edit" class="btn btn-default btn-lg"><span class="glyphicon glyphicon-pencil"></span></a>
+				</div>
+			<div class="col-xs-2 col-sm-1 col-md-1">
+				<a href="/tasks/{{ task.task_id }}/completed" class="btn btn-success btn-lg"><span class="glyphicon glyphicon-ok"></span></a>
+				</div>
+			<div class="col-xs-2 col-sm-1 col-md-1">
+				<a href="/tasks/{{ task.task_id }}/delete" class="btn btn-danger btn-lg"><span class="glyphicon glyphicon-remove"></span></a>
+			</div>
+		</div>
+		<br>
+		<div class="row">
+			<div class="col-md-4">
+				<p>
+				<img src="{{ task.pic }}" alt="task picture" class="img-responsive thumbnail" width="304" height="236">
+				</p>
+			</div>
+			<div class="col-md-8">
+				<h3>{{ task.title }}</a></h3>
+				<h5>{{ task.description }}</h5>
+				{# <button class="w3-btn w3-green">Accept</button>
+				<button class="w3-btn w3-red">Decline</button> #}
+			</div>
+		</div>
 	</div>
 {% endblock %}
