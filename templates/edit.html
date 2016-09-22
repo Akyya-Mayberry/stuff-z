@@ -4,6 +4,13 @@
 	<div class="page-header">
 		<h1 class="text-center">Edit '{{ task.title }}'' Task</h1>
 	</div>
+	<div class="row">
+		<div class="col-md-6"
+		<img src="/static/uploads/{{ task.pic }}" class="img-responsive center-block" alt="task screenshot">
+		</div>
+		<div class="col-md-6">
+		</div>
+	</div>
 	<div class="container">
 		<form action="/tasks/{{ task.task_id }}/edit" method="post" enctype="multipart/form-data">
 			<div class="form-group row">
