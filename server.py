@@ -80,7 +80,6 @@ def login():
 			flash('<p>No account exist under that email, try again or <a href="/signup">signup</a> for new account.<p>')
 			return redirect('/login')
 
-		print "$$$$user, ", user
 		# add user to session
 		session['current_user'] = user.user_id
 		
@@ -95,7 +94,8 @@ def logout():
 	""" Log out current user """
 
 	# Remove current user
-	session.pop('current_user', None)
+	if session:
+		session.pop('current_user', None)
 
 	return redirect('/')
 
@@ -134,7 +134,7 @@ def add():
 
 		# clean filename, then save to server
 		if pic:
-			filename =  str(session["current_user"]) + "_" + secure_filename(pic.filename)
+			filename = str(session["current_user"]) + "_" + secure_filename(pic.filename)
 			pic.save(os.path.join(UPLOAD_FOLDER, filename))
 
 		# add new task to db
@@ -159,11 +159,33 @@ def details(task_id):
 
 
 
-@app.route('/tasks/<int:task_id>/edit')
+@app.route('/tasks/<int:task_id>/edit', methods=['POST', 'GET'])
 def edit(task_id):
 	""" Edit existing task """
 
+	# current task to edit
+	task = Task.query.get(task_id)
 
+	# if updating
+	if request.method == 'POST':
+		# get the changes
+		description = request.form['description']
+		pic = request.files['pic']
+
+		# update fields
+		task.description = description
+
+		if pic:
+			filename = str(session["current_user"]) + "_" + secure_filename(pic.filename)
+			pic.save(os.path.join(UPLOAD_FOLDER, filename))
+			task.pic = filename
+
+		db.session.commit()
+		flash('<p>Task was successfully updated!</p>')
+
+		return redirect("/tasks/" + str(task_id) + "/details")
+	else:
+		return render_template('edit.html', task=task)
 
 @app.route('/tasks/<int:task_id>/delete')
 def delete(task_id):
