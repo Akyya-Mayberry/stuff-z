@@ -114,8 +114,10 @@ def profile():
 def tasks():
 	""" Displays all tasks of user """
 
+	user = User.query.get(session['current_user'])
 	tasks = Task.query.filter_by(user_id=session['current_user'], status=False).all()
-	return render_template('tasks.html', tasks=tasks)
+	
+	return render_template('tasks.html', tasks=tasks, user=user)
 
 
 

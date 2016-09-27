@@ -34,11 +34,11 @@
 			</div>{# /.container-fluid #}
 		</nav>
 		<div class="container">
-		{% for message in get_flashed_messages() %}
-			{{ message | safe }}
-		{% endfor %}
-		{# Main Content #}
-		{% block body %}BODY CONTENT GOES HERE{% endblock %}
-	</div>
+			{% for message in get_flashed_messages() %}
+				{{ message | safe }}
+			{% endfor %}
+			{# Main Content #}
+			{% block body %}BODY CONTENT GOES HERE{% endblock %}
+		</div>
 	</body>
 </html>

@@ -4,7 +4,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-sm-12">
-				<h1>Welcome {{ tasks[0].user.firstname | title }}</h1>
+				<h1>Welcome {{ user.firstname | title }}</h1>
 			</div>
 		</div>
 		<div class="row">
@@ -29,15 +29,15 @@
 									<h3><a href="/tasks/{{ task.task_id }}/details">{{ task.title }}</h3>
 									{# <img src="{{ url_for('static', filename='uploads/{{task.pic}}') }}" alt="task picture" style="width:20%" class="img-responsive img-circle center-block"> #}
 									<p>
-									<img src="static/uploads/{{ task.pic }}" alt="task picture" style="width: 100%" class="img-responsive img-circle center-block">
+									<img src="static/uploads/{{ task.pic }}" alt="task picture" class="img-responsive img-circle center-block">
 									</p>
 									</a>
 									<p style="min-height: 100px; max-height: 100px; overflow: hidden;">{{ task.description }}</p>
 									<div style="background-color: #000; color: #FFF;">
-									<a href="/tasks/{{ task.task_id }}/edit"><span class="glyphicon glyphicon-pencil"></span></a>
-									<a href="/tasks/{{ task.task_id }}/completed"><span class="glyphicon glyphicon-ok"></span></a>
-									<a href="/tasks/{{ task.task_id }}/delete"><span class="glyphicon glyphicon-remove"></span></a>
-								</div>
+										<a href="/tasks/{{ task.task_id }}/edit"><span class="glyphicon glyphicon-pencil"></span></a>
+										<a href="/tasks/{{ task.task_id }}/completed"><span class="glyphicon glyphicon-ok"></span></a>
+										<a href="/tasks/{{ task.task_id }}/delete"><span class="glyphicon glyphicon-remove"></span></a>
+									</div>
 								</div>
 							</div>
 					<br>
