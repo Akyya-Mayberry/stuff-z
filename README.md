@@ -6,4 +6,6 @@ Python Flask application that allows user to strategically tackle hoarding issue
 3. Pip install the requirements.txt file
 4. Create a postgres database called 'stuffz'
 
+Tech Stack: Python, Flask, SQLAlchemy, HTMl, CSS
+
 deployed: http://stuff-z.herokuapp.com/
