@@ -8,13 +8,22 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-sm-12" style="text-align: right;">
-				<h3>filter</h3>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-sm-12 text-center">
+			<div class="col-sm-offset-2 col-sm-8 text-center">
 				<h1>Stuff To Do</h1>
+			</div>
+			{# task filter selection #}
+			<div class="col-sm-2">
+				<form action="/tasks" method="GET">
+					<div class="form-group">
+						<label for="status">filter by status</label>
+						<select class="form-control" id="status" name="status" onchange="this.form.submit()" autofocus>
+							<option value="all">All</option>
+							<option value="not completed">Not Completed</option>
+							<option value="completed">Completed</option>
+							<option value="current">Current</option>
+						</select>
+					</div>
+				</form>
 			</div>
 		</div>
 		<br>

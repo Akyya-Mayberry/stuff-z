@@ -112,11 +112,20 @@ def profile():
 
 @app.route("/tasks")
 def tasks():
-	""" Displays all tasks of user """
+	""" Displays tasks of user """
 
 	user = User.query.get(session['current_user'])
-	tasks = Task.query.filter_by(user_id=session['current_user'], status=False).all()
+	tasks = Task.query.filter_by(user_id=session['current_user']).all()
 	
+	# displays all tasks based on user filtered option
+	if request.args.get("status"):
+		if request.args.get("status") == "all":
+			tasks = Task.query.filter_by(user_id=session['current_user']).all()
+		elif request.args.get("status") == "not completed":
+			tasks = Task.query.filter_by(user_id=session['current_user'], status=False).all()
+		else:
+			tasks = Task.query.filter_by(user_id=session['current_user'], status=True).all()
+
 	return render_template('tasks.html', tasks=tasks, user=user)
 
 
