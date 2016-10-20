@@ -1,12 +1,23 @@
 /* styles task cards */
 
-img {
+/*img {
     min-width: 300px;
     max-width: 300px;
     min-height: 300px;
     max-height: 300px;
        
-}
+}*/
+
+/* w3 cards */
+/*body > div > div > div:nth-child(4) > div {
+	float: left;
+}*/
+
+ .tdescription {
+ 	min-height: 100px; 
+ 	max-height: 100px; 
+ 	overflow: hidden;
+ }
 
 
 
